@@ -24,6 +24,15 @@ globalThis.toggleTheme = function(){
   const isDark = document.documentElement.classList.toggle('dark');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
   updateThemeIcon();
+  
+  // Add animation feedback to the toggle button
+  const btn = document.getElementById('themeToggleBtn');
+  if(btn && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    btn.style.animation = 'none';
+    // Trigger reflow to restart animation
+    void btn.offsetWidth;
+    btn.style.animation = 'toggleSpin 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1';
+  }
 };
 
 function updateThemeIcon(){
